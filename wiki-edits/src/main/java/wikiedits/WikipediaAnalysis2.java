@@ -1,17 +1,20 @@
 package wikiedits;
 
 import org.apache.flink.api.common.functions.FoldFunction;
+import org.apache.flink.api.common.functions.MapFunction;
+import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.java.functions.KeySelector;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer08;
 import org.apache.flink.streaming.connectors.wikiedits.WikipediaEditEvent;
 import org.apache.flink.streaming.connectors.wikiedits.WikipediaEditsSource;
 
-//官网例子
-public class WikipediaAnalysis {
+//官网例子写入kafka
+public class WikipediaAnalysis2 {
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment see = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -37,7 +40,12 @@ public class WikipediaAnalysis {
                     }
                 });
 
-        result.print();
+        result.map(new MapFunction<Tuple2<String,Long>, String>() {
+                    @Override
+                    public String map(Tuple2<String, Long> tuple) {
+                        return tuple.toString();
+                    }
+                }).addSink(new FlinkKafkaProducer08<>("192.168.199.188:9092", "truck_collector_alarm_info", new SimpleStringSchema()));
 
         see.execute();
     }
