@@ -88,7 +88,7 @@
               </filters>
               <transformers>
                 <transformer>
-                  <mainClass>wikiedits.StreamingJob</mainClass>
+                  <mainClass>wordcount.WordCount</mainClass>
                 </transformer>
               </transformers>
             </configuration>
