@@ -9,7 +9,7 @@ import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.time.Time;
-import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer010;
+import org.apache.flink.streaming.connectors.kafka.FlinkKafkaProducer;
 import org.apache.flink.streaming.connectors.wikiedits.WikipediaEditEvent;
 import org.apache.flink.streaming.connectors.wikiedits.WikipediaEditsSource;
 
@@ -45,7 +45,7 @@ public class WikipediaAnalysis2 {
                     public String map(Tuple2<String, Long> tuple) {
                         return tuple.toString();
                     }
-                }).addSink(new FlinkKafkaProducer010<String>("192.168.199.188:9092", "truck_collector_alarm_info", new SimpleStringSchema()));
+                }).addSink(new FlinkKafkaProducer<String>("192.168.199.188:9092", "truck_collector_alarm_info", new SimpleStringSchema()));
 
         see.execute();
     }
