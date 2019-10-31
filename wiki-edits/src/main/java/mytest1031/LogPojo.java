@@ -3,11 +3,20 @@ package mytest1031;
 import java.io.Serializable;
 
 public class LogPojo implements Serializable {
+    private String pageName;
     private String appType;
     private String province;
     private String sex;
     private Double price;
     private Long time;
+
+    public String getPageName() {
+        return pageName;
+    }
+
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
+    }
 
     public String getAppType() {
         return appType;

@@ -36,6 +36,7 @@ public class KafkaProducerTest {
             logPojo.setSex(sexList.get(random.nextInt(sexList.size())));
             logPojo.setTime(System.currentTimeMillis());
             logPojo.setPrice(random.nextDouble());
+            logPojo.setPageName("homepage");
 
             ProducerRecord record = new ProducerRecord("wn_1031", JSONObject.toJSONString(logPojo));
             producer.send(record);
