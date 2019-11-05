@@ -29,7 +29,7 @@ public class KafkaProducerTest {
         Random random  = new Random();
 
         for (int i = 0; i < 10000; i++) {
-
+            System.out.println("***********-" + i);
             LogPojo logPojo = new LogPojo();
             logPojo.setAppType(appTypeList.get(random.nextInt(appTypeList.size())));
             logPojo.setProvince(provinceList.get(random.nextInt(provinceList.size())));
